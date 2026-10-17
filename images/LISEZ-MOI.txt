@@ -1,0 +1,10 @@
+# Dossier images — site FRANKY FASHION
+
+Placez ici vos photos avec exactement ces noms :
+
+- hero-detourage.png — homme en manteau et casquette (fond transparent, détouré)
+- detail.jpg — détail du vêtement (doublure, boutons)
+- avis-1.jpg à avis-4.jpg — photos verticales pour les cartes d'avis
+- banniere.jpg — homme en tenue d'hiver (bannière pleine largeur)
+
+Si une image est absente, un bloc gris foncé s'affiche à la place (pas d'image cassée).

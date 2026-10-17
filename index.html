@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FRANKY FASHION — L’uniforme de l’invisible</title>
+  <meta name="description" content="FRANKY FASHION. Uniforme de l’invisible. Vêtements pour hommes, style streetwear éditorial et minimaliste." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;900&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            grisbleu: { DEFAULT: '#eef0f4' },
+            ciel: '#9fd0e8',
+            noir: '#000000',
+          },
+          fontFamily: {
+            grotesque: ['Outfit', 'Inter', 'sans-serif'],
+            sans: ['Inter', 'sans-serif'],
+          },
+          keyframes: {
+            'marquee-x': {
+              '0%': { transform: 'translateX(0)' },
+              '100%': { transform: 'translateX(-50%)' },
+            },
+            'fade-up': {
+              '0%': { opacity: '0', transform: 'translateY(14px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            },
+          },
+          animation: {
+            'marquee-x': 'marquee-x 24s linear infinite',
+            'fade-up': 'fade-up 0.7s ease-out forwards',
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; font-family: 'Inter', sans-serif; color: #000; background: #fff; }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+    button, a { cursor: pointer; }
+
+    /* Cheveux de page : pas d’ombre, ligne fine */
+    .hairline { border-bottom: 1px solid rgba(0, 0, 0, 0.08); }
+
+    /* Fond gris foncé pour remplacer une image manquante */
+    .img-placeholder { background: #262626; }
+
+    /* Barre de code-barres stylisée */
+    .barcode {
+      display: inline-block;
+      width: 56px;
+      height: 8px;
+      background: #000;
+      mask-image: repeating-linear-gradient(#000 0 #000 1px, transparent 1px transparent 5px);
+      mask-size: 5px 100%;
+      mask-position: center;
+      vertical-align: middle;
+    }
+
+    /* Bouton en verre dépoli */
+    .glass-btn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-h-[44px];
+      min-w-[44px];
+      rounded-full;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(0, 0, 0, 0.12);
+    }
+
+    .focus-ciel:focus-visible {
+      outline: 2px solid #9fd0e8;
+      outline-offset: 2px;
+      border-radius: 6px;
+    }
+
+    /* Animations images */
+    @keyframes kenburns {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.14); }
+    }
+    .kenburns { animation: kenburns 10s ease-in-out infinite alternate; }
+
+    .zoomable { transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1); }
+    .zoomable:hover { transform: scale(1.05); }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .reveal.is-visible { opacity: 1; transform: none; }
+
+    /* Accessibilité : réduire les animations */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .001ms !important;
+        scroll-behavior: auto !important;
+      }
+      .animate-marquee-x, .kenburns { animation: none !important; }
+      .reveal { opacity: 1 !important; transform: none !important; }
+      .zoomable { transition: none !important; }
+    }
+  </style>
+</head>
+
+<body class="antialiased">
+
+  <!-- ============================================================
+       1. MENU BLANC FIN
+       ============================================================ -->
+  <header class="sticky top-0 z-40 bg-white border-b border-black/10 px-5 py-3.5">
+    <div class="mx-auto max-w-[1200px] flex items-center justify-between gap-4 px-4 sm:px-6">
+      <a href="#accueil" class="flex items-center gap-2.5 font-grotesque font-black text-[17px] tracking-tighter uppercase text-black">
+        <span class="text-ciel">//</span> FRANKY FASHION
+      </a>
+
+      <nav class="hidden md:flex items-center gap-9 text-[9.5px] font-semibold uppercase tracking-wider text-black/70">
+        <a href="#accueil" class="hover:text-black">Accueil</a>
+        <a href="#nouveautes" class="hover:text-black">Nouveautés</a>
+        <a href="#top-produits" class="hover:text-black">Top produits</a>
+        <a href="#collections" class="relative inline-flex items-center gap-1 hover:text-black">
+          Collections
+          <span class="h-5 w-[44px] rounded-full border border-black px-1.5 py-0.5 text-[8px] font-black uppercase tracking-tighter text-black bg-black text-white">NEW</span>
+        </a>
+      </nav>
+
+      <div class="flex items-center gap-5 text-[9.5px] font-semibold uppercase tracking-wider">
+        <a href="#" class="text-black/50 hover:text-black focus-ciel">FR</a>
+        <button aria-label="Voir le panier" class="relative flex h-9 w-9 items-center justify-center rounded-full border border-black/20 text-black group focus-ciel">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="9" cy="21" r="1" /><circle cx="20" cy="21" r="1" /><path d="M1 1h4l2.6 12h12.8l2.6-12H21" /><path d="M3.5 14.5h2.1M20.5 14.5h-2.1" />
+          </svg>
+          <span class="absolute -right-1 -top-1 h-4 w-4 rounded-full bg-ciel text-black text-[9px] font-black flex items-center justify-center">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       2. HERO PLEIN ÉCRAN
+       ============================================================ -->
+  <section id="accueil" class="relative min-h-[100svh] bg-[#eef0f4] overflow-hidden">
+    <div class="absolute top-[50%] -right-[12%] w-[60vw] h-[60vw] rounded-full bg-ciel/15 blur-[110px] -translate-y-1/2 -translate-x-1/2" aria-hidden="true"></div>
+
+    <!-- Détail vêtement en haut à gauche -->
+    <div class="absolute top-[5%] left-[5%] w-[20vw] max-w-[230px] h-[20vw] max-h-[260px] overflow-hidden rounded-[1.125rem] bg-[#262626] img-placeholder">
+      <img src="images/detail.jpg" alt="Détail de la doublure et des boutons du manteau" class="size-full object-cover object-center zoomable reveal" onerror="this.style.display='none'" />
+      <div class="absolute bottom-3 left-3 right-3">
+        <div class="flex items-center gap-1.5 mb-1">
+          <div class="barcode"></div>
+          <span class="text-[8px] font-black uppercase tracking-tighter text-white">[ COLLECTION HIVER — V2 ]</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Est.22 en haut à droite -->
+    <div class="absolute top-[5%] right-[5%] text-[9px] font-grotesque font-black uppercase tracking-widest text-black/25">° EST.22</div>
+
+    <!-- Texte court à gauche -->
+    <div class="absolute bottom-[22%] left-[6%] max-w-[280px] z-30">
+      <p class="text-[9.5px] font-semibold uppercase tracking-widest text-black/50 leading-tight mb-4">
+        Veste structurée en laine double face. Coupe ample, boutons ton sur ton, épaules légèrement marquées.
+      </p>
+      <button class="glass-btn text-black text-[11px] font-black uppercase tracking-tighter focus-ciel">
+        AVANCER <span>↘</span>
+      </button>
+    </div>
+
+    <!-- “FRANKY FASHION” énorme en bas, passe derrière l’homme -->
+    <h1 class="absolute bottom-[26%] left-0 w-full text-center z-10 font-grotesque font-black text-[clamp(11rem,30vw,46rem)] tracking-[-0.03em] leading-none text-black uppercase">FRANKY FASHION</h1>
+
+    <!-- Homme en manteau et casquette (photo détournée, placé au-dessus du texte) -->
+    <div class="absolute bottom-[10%] left-1/2 -translate-x-1/2 z-20 w-[52vw] max-w-[680px] overflow-hidden rounded-[1.625rem] bg-[#262626] img-placeholder">
+      <img src="images/hero-detourage.png" alt="Homme en manteau et casquette, en mouvement" class="size-full object-cover object-center kenburns reveal" onerror="this.style.display='none'" />
+    </div>
+  </section>
+
+  <!-- ============================================================
+       3. BANDEAU NOIR DÉFILANT
+       ============================================================ -->
+  <section class="bg-black text-white px-5 py-4 overflow-hidden">
+    <div class="whitespace-nowrap animate-marquee-x flex gap-14 font-grotesque font-black text-[13px] tracking-tighter uppercase">
+      <span>CONÇU POUR LA NUIT ©</span>
+      <span>ZÉRO BRUIT ©</span>
+      <span>FRANKY FASHION ©</span>
+      <span>CONÇU POUR LA NUIT ©</span>
+      <span>ZÉRO BRUIT ©</span>
+      <span>FRANKY FASHION ©</span>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       4. GRAND TITRE NOIR
+       ============================================================ -->
+  <section class="bg-black text-white py-32 px-6 text-center">
+    <h2 class="font-grotesque font-black text-[clamp(2.5rem,8vw,7rem)] leading-[0.92] tracking-[-0.02em] uppercase">L’UNIFORME // DE L’INVISIBLE</h2>
+  </section>
+
+  <!-- ============================================================
+       5. GRILLE “APPROUVÉ PAR // LA ROUTINE”
+       ============================================================ -->
+  <section id="top-produits" class="bg-[#eef0f4] py-24 px-6">
+    <div class="mx-auto max-w-[1200px] px-4 sm:px-6">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-14">
+        <h3 class="font-grotesque font-black text-[16px] tracking-wider uppercase text-black">APPROUVÉ PAR</h3>
+        <span class="text-[9px] font-semibold uppercase tracking-widest text-black/35">LA ROUTINE</span>
+      </div>
+
+      <div class="grid grid-cols-2 gap-8 md:grid-cols-4 items-start">
+        <!-- Avis 1 -->
+        <div class="group flex flex-col gap-3 justify-start md:self-start">
+          <div class="aspect-[3/4] overflow-hidden rounded-[1rem] bg-[#262626] img-placeholder">
+            <img src="images/avis-1.jpg" alt="Portrait d’un homme portant un manteau sombre" class="size-full object-cover object-center zoomable reveal" onerror="this.style.display='none'" />
+          </div>
+          <div class="border border-ciel/50 bg-white p-3 rounded-[1rem]">
+            <div class="flex items-center gap-1.5 mb-2">
+              <div class="barcode"></div>
+              <span class="text-[8px] font-black uppercase tracking-tighter text-black">04</span>
+            </div>
+            <p class="text-[10.5px] leading-tight text-black/70">La coupe tombe juste, la laine ne gratte pas.</p>
+            <p class="text-[9px] font-black uppercase tracking-wider text-ciel mt-2">— @leo</p>
+          </div>
+        </div>
+
+        <!-- Avis 2 -->
+        <div class="group flex flex-col gap-3 justify-end md:self-end mt-[3rem]">
+          <div class="aspect-[3/4] overflow-hidden rounded-[1rem] bg-[#262626] img-placeholder">
+            <img src="images/avis-2.jpg" alt="Détail du col d’un manteau en laine" class="size-full object-cover object-center zoomable reveal" onerror="this.style.display='none'" />
+          </div>
+          <div class="border border-ciel/50 bg-white p-3 rounded-[1rem]">
+            <div class="flex items-center gap-1.5 mb-2">
+              <div class="barcode"></div>
+              <span class="text-[8px] font-black uppercase tracking-tighter text-black">11</span>
+            </div>
+            <p class="text-[10.5px] leading-tight text-black/70">Confortable en ville, discret le soir.</p>
+            <p class="text-[9px] font-black uppercase tracking-wider text-ciel mt-2">— @nils</p>
+          </div>
+        </div>
+
+        <!-- Avis 3 -->
+        <div class="group flex flex-col gap-3 justify-start md:self-start mt-[3rem]">
+          <div class="aspect-[3/4] overflow-hidden rounded-[1rem] bg-[#262626] img-placeholder">
+            <img src="images/avis-3.jpg" alt="Un homme marchant en manteau noir" class="size-full object-cover object-center zoomable reveal" onerror="this.style.display='none'" />
+          </div>
+          <div class="border border-ciel/50 bg-white p-3 rounded-[1rem]">
+            <div class="flex items-center gap-1.5 mb-2">
+              <div class="barcode"></div>
+              <span class="text-[8px] font-black uppercase tracking-tighter text-black">19</span>
+            </div>
+            <p class="text-[10.5px] leading-tight text-black/70">Le gris-bleu est parfait, peu salissant.</p>
+            <p class="text-[9px] font-black uppercase tracking-wider text-ciel mt-2">— @sam</p>
+          </div>
+        </div>
+
+        <!-- Avis 4 -->
+        <div class="group flex flex-col gap-3 justify-end md:self-end">
+          <div class="aspect-[3/4] overflow-hidden rounded-[1rem] bg-[#262626] img-placeholder">
+            <img src="images/avis-4.jpg" alt="Dos d’un homme en manteau et casquette" class="size-full object-cover object-center zoomable reveal" onerror="this.style.display='none'" />
+          </div>
+          <div class="border border-ciel/50 bg-white p-3 rounded-[1rem]">
+            <div class="flex items-center gap-1.5 mb-2">
+              <div class="barcode"></div>
+              <span class="text-[8px] font-black uppercase tracking-tighter text-black">27</span>
+            </div>
+            <p class="text-[10.5px] leading-tight text-black/70">Rien à redire sur la finition.</p>
+            <p class="text-[9px] font-black uppercase tracking-wider text-ciel mt-2">— @milo</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       6. BANNIÈRE PLEINE LARGEUR
+       ============================================================ -->
+  <section id="collections" class="relative bg-[#eef0f4] overflow-hidden">
+    <div class="aspect-[16/9] overflow-hidden bg-[#262626] img-placeholder">
+      <img src="images/banniere.jpg" alt="Homme en tenue d'hiver, manteau sombre et casquette" class="size-full object-cover object-center zoomable reveal" onerror="this.style.display='none'" />
+    </div>
+    <div class="absolute inset-0 flex items-center justify-center px-6">
+      <div class="text-center z-10">
+        <h2 class="font-grotesque font-black text-[clamp(2rem,6vw,4rem)] leading-[0.94] tracking-[-0.02em] uppercase text-white">CALME PAR DESIGN</h2>
+        <a href="#nouveautes" class="mt-6 inline-block border-b border-white pb-[2px] text-sm font-semibold uppercase tracking-wider hover:opacity-75 focus-ciel">DÉCOUVRIR LA COLLECTION ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       7. NEWSLETTER + PIED DE PAGE
+       ============================================================ -->
+  <section class="bg-black text-white py-24 px-6">
+    <div class="mx-auto max-w-[1200px] px-4 sm:px-6 grid grid-cols-1 md:grid-cols-3 gap-16">
+      <div>
+        <h3 class="font-grotesque font-black text-[15px] tracking-wider uppercase text-white mb-6">NEWSLETTER</h3>
+        <form class="flex gap-2" onsubmit="event.preventDefault()">
+          <input type="email" placeholder="Votre e-mail" class="flex-1 h-[44px] rounded-full bg-white/10 border border-white/20 px-4 text-white outline-none placeholder-white/40 focus-ciel" />
+          <button type="submit" class="h-[44px] w-[44px] rounded-full bg-ciel text-black font-black focus-ciel">→</button>
+        </form>
+      </div>
+
+      <div>
+        <h4 class="text-[9px] font-semibold uppercase tracking-widest text-white/45 mb-6">FRANKY FASHION</h4>
+        <p class="text-[10.5px] leading-relaxed text-white/50">Uniforme de l’invisible. Conçu pour la nuit. Zéro bruit.</p>
+      </div>
+
+      <div>
+        <h4 class="text-[9px] font-semibold uppercase tracking-widest text-white/45 mb-6">LIENS</h4>
+        <ul class="space-y-3 text-[10.5px] text-white/50">
+          <li><a href="#accueil" class="hover:text-white focus-ciel">Accueil</a></li>
+          <li><a href="#nouveautes" class="hover:text-white focus-ciel">Nouveautés</a></li>
+          <li><a href="#top-produits" class="hover:text-white focus-ciel">Top produits</a></li>
+          <li><a href="#collections" class="hover:text-white focus-ciel">Collections</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="text-[9px] font-semibold uppercase tracking-widest text-white/45 mb-6">CONTACT</h4>
+          <ul class="space-y-3 text-[10.5px] text-white/50">
+            <li>studio@franckyfashion.com</li>
+            <li>Kalamie</li>
+            <li>GPS —° N, —° E</li>
+          </ul>
+      </div>
+    </div>
+
+    <hr class="border-black/20 my-16" />
+    <p class="text-[9px] leading-none text-white/30 text-center uppercase tracking-widest">FRANKY FASHION © 2026 — TOUS DROITS RÉSERVÉS</p>
+  </section>
+
+  <script>
+    // Apparition douce des images au défilement (respecte prefers-reduced-motion)
+    var revealEls = document.querySelectorAll(".reveal");
+    var reduit = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduit || !("IntersectionObserver" in window)) {
+      revealEls.forEach(function (el) { el.classList.add("is-visible"); });
+    } else {
+      var observateur = new IntersectionObserver(function (entrees) {
+        entrees.forEach(function (entree) {
+          if (entree.isIntersecting) {
+            entree.target.classList.add("is-visible");
+            observateur.unobserve(entree.target);
+          }
+        });
+      }, { threshold: 0.15, rootMargin: "0px 0px -10% 0px" });
+      revealEls.forEach(function (el) { observateur.observe(el); });
+    }
+  </script>
+</body>
+</html>
